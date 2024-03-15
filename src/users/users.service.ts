@@ -20,8 +20,9 @@ export class UsersService {
         return this.usersRepository.save(user);
     }
 
-    findAll() {
-        return `This action returns all users`;
+    findAll(skip ?: number,
+            take ?: number) : Promise<User []> {
+        return this.usersRepository.find({skip : skip, take : take});
     }
 
     findOne(id: number) {
