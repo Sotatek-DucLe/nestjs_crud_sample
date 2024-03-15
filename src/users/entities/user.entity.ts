@@ -1,4 +1,4 @@
-import { BeforeInsert, Column, Entity } from 'typeorm';
+import { BeforeInsert, Column, DeleteDateColumn, Entity } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
 
 @Entity()
@@ -15,6 +15,9 @@ export class User {
 
     @Column({ default: true })
     isActive: boolean;
+
+    @DeleteDateColumn()
+    deleteDate: Date;
 
     @BeforeInsert()
     generateId() {

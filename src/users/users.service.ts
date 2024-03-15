@@ -45,4 +45,12 @@ export class UsersService {
     remove(id: string): Promise<DeleteResult> {
         return this.usersRepository.delete({ id: id });
     }
+
+    /**
+     * Soft delete
+     * @param id
+     */
+    // remove(id: string): Promise<DeleteResult> {
+    //     return this.usersRepository.softDelete({ id: id });
+    // }
 }
