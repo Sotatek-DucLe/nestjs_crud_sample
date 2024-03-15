@@ -25,8 +25,8 @@ export class UsersService {
         return this.usersRepository.find({skip : skip, take : take});
     }
 
-    findOne(id: number) {
-        return `This action returns a #${id} user`;
+    findOne(id: string) : Promise<User> {
+        return this.usersRepository.findOneBy({id : id});
     }
 
     update(id: number, updateUserDto: UpdateUserDto) {
