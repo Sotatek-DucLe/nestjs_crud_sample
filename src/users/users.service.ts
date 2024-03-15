@@ -4,6 +4,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
+import { UpdateResult } from 'typeorm/query-builder/result/UpdateResult';
 
 @Injectable()
 export class UsersService {
@@ -21,16 +22,23 @@ export class UsersService {
     }
 
     findAll(skip ?: number,
-            take ?: number) : Promise<User []> {
-        return this.usersRepository.find({skip : skip, take : take});
+            take ?: number): Promise<User []> {
+        return this.usersRepository.find({ skip: skip, take: take });
     }
 
-    findOne(id: string) : Promise<User> {
-        return this.usersRepository.findOneBy({id : id});
+    findOne(id: string): Promise<User> {
+        return this.usersRepository.findOneBy({ id: id });
     }
 
-    update(id: number, updateUserDto: UpdateUserDto) {
-        return `This action updates a #${id} user`;
+    update(updateUserDto: UpdateUserDto): Promise<UpdateResult> {
+        return this.usersRepository.update(
+                { id: updateUserDto.id },
+                {
+                    isActive: updateUserDto.isActive,
+                    lastName: updateUserDto.lastName,
+                    firstName: updateUserDto.firstName,
+                },
+        );
     }
 
     remove(id: number) {
