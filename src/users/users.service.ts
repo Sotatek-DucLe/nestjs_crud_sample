@@ -5,6 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
 import { UpdateResult } from 'typeorm/query-builder/result/UpdateResult';
+import { DeleteResult } from 'typeorm/query-builder/result/DeleteResult';
 
 @Injectable()
 export class UsersService {
@@ -41,7 +42,7 @@ export class UsersService {
         );
     }
 
-    remove(id: number) {
-        return `This action removes a #${id} user`;
+    remove(id: string): Promise<DeleteResult> {
+        return this.usersRepository.delete({ id: id });
     }
 }
